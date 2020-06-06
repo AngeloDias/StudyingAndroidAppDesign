@@ -1,13 +1,12 @@
 package com.example.android.gdgfinder.add
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-
+import androidx.lifecycle.ViewModelProviders
 import com.example.android.gdgfinder.R
 import com.example.android.gdgfinder.databinding.AddGdgFragmentBinding
 import com.google.android.material.snackbar.Snackbar
@@ -23,8 +22,7 @@ class AddGdgFragment : Fragment() {
         val binding = AddGdgFragmentBinding.inflate(inflater)
 
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
-        binding.setLifecycleOwner(this)
-
+        binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
         viewModel.showSnackBarEvent.observe(this, Observer {
@@ -35,6 +33,9 @@ class AddGdgFragment : Fragment() {
                     Snackbar.LENGTH_SHORT // How long to display the message.
                 ).show()
                 viewModel.doneShowingSnackbar()
+
+                binding.button.contentDescription = getString(R.string.submitted)
+                binding.button.text = getString(R.string.done)
             }
         })
 
